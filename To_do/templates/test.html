@@ -1,0 +1,435 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400">
+  <!-- Google web font "Open Sans" -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <!-- https://getbootstrap.com/ -->
+  <link rel="stylesheet" href="css/templatemo-style.css">
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse:collapse;
+}
+th, td {
+  padding: 5px;
+}
+
+svg:hover{
+    background-color: greenyellow;
+}
+
+button{
+    border: 0;
+    background: none;
+    display: block; 
+    text-align:center;
+    border: 5px solid  #404040;
+    outline: none;
+    color:white;
+    border-radius:24px ;
+    transition:0.25s; 
+}
+button:hover{
+    background-color: greenyellow;
+}
+
+
+  /* Style for the popup overlay */
+  .overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+  color:white;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup {
+  color:white;
+  margin: 70px auto;
+  padding: 20px;
+  background-color: #333333;
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.popup h2 {
+  color:white;
+  margin-top: 0;
+  font-family: Tahoma, Arial, sans-serif;
+}
+.popup .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.popup .close:hover {
+  color: #06D85F;
+}
+.popup .content {
+  max-height: 700%;
+  overflow: auto;
+  color:white;
+}
+
+@media screen and (max-width: 700px){
+  .box{
+    width: 70%;
+  }
+  .popup{
+    width: 70%;
+  }
+}
+
+.save_note{
+    border: 0;
+    background: none;
+    display: block; 
+    text-align:center;
+    border: 2px solid #404040;
+    outline: none;
+    color:white;
+    border-radius:24px ;
+    transition:0.25s; 
+  position: absolute; /* Position the button absolutely within the popup */
+  right: 22px; /* Adjust the value to move the button left */
+  bottom: 20px;
+}
+#inner_div{
+  width: 40px; 
+  height: inherit; 
+  border: 2px solid red;
+   border-radius: 50%; 
+   margin-top: 20px; 
+   background-image: url("img/829472_man_512x512.png");
+
+}
+.login_user {
+    width: 70px;
+    height: 70px;
+    display: inline-block;
+    vertical-align: middle;
+    border: 3px solid rgb(69, 202, 69);
+}
+#nav_user_details span{
+  margin-left: 15px;
+  margin-right: 5px;
+  margin-top: 2px;
+  font-size: 30px;
+  color: wheat;
+
+}
+#logoutbtn{position: relative;
+    left: 186px;
+    top: -55px;
+    color:red;
+}
+#createaddpost{
+  border: 0;
+    background: none;
+    /* display: block; */
+    text-align:center;
+    border: 4px solid  #404040;
+    padding: 2px 15px;
+    /* outline: none; */
+    color:white;
+    border-radius:24px ;
+    position: relative; 
+    left: 302px;
+}
+#createaddpost:hover{
+  background-color:#3498db;
+}
+</style>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+<body>
+  
+ <div id="nav_user_details" style="width:100%; height: 75px; background-color: black;"><img id="profile" src="img/829472_man_512x512.png" alt="Image" class="rounded-circle login_user"><span id="login_text"></span><button  id="logoutbtn">logout<svg style="margin-left:10px; margin-top:5px;" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M217.9 105.9L340.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L217.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1L32 320c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM352 416l64 0c17.7 0 32-14.3 32-32l0-256c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32l64 0c53 0 96 43 96 96l0 256c0 53-43 96-96 96l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32z"/></svg></button></div>
+<div class="container">
+
+  <div class="row">
+    <div class="col-lg-12">
+        <header class="text-center tm-site-header">
+            <div class="tm-site-logo"></div>
+            <h1 class="pl-4 tm-site-title">Notes Application</h1>
+        </header>
+    </div>
+  </div>
+
+  <div class="container tm-container-2">
+    <div class="row">
+        <div class="col-lg-12">
+            <h2 class="tm-welcome-text">Welcome to Notes Application</h2>
+        </div>
+    </div>
+    <div class="row tm-section-mb">
+      <div class="col-lg-12">
+
+      
+      </div>
+      <button id="createaddpost">add notes</button>  
+    </div>
+  </div>
+
+</div>
+
+
+<script>
+var token=sessionStorage.getItem("token");
+var user=sessionStorage.getItem('user');
+var media_url="http://127.0.0.1:8000/note/media/"
+
+function addeventbutton(){
+ var buttons = document.querySelectorAll('.del-button');
+console.log(buttons);
+$('.del-button').each(function(){
+      $(this).click(function(){
+        var buttonId = $(this).attr('id');
+        $.ajax({
+            url: `http://127.0.0.1:8000/note/api/${buttonId}`,
+            type: 'DELETE',
+            headers:{'Authorization': `Token ${token}`},
+            success: function(data) {
+                console.log(data)
+            },
+            error: function(error) {
+                console.log('GET error:', error);
+            }
+            });
+        });})
+      }
+function logout(){
+$('#logoutbtn').click(
+  function(){
+  $.ajax({
+            url: 'http://127.0.0.1:8000/note/api/logout',
+            type: 'POST',
+            headers:{'Authorization': `Token ${token}`},
+            success: function(data) {
+              window.location.href = "login.html";
+              sessionStorage.removeItem('token');
+        },
+           error: function(error) {
+                console.log('GET error:', error);
+            } });  
+})};
+
+function createtable(){
+    var divs = document.querySelectorAll('.col-lg-12')[2];
+        $.ajax({
+            url: 'http://127.0.0.1:8000/note/api',
+            type: 'GET',
+            // data:data_test,
+            success: function(data) {
+              var image=document.querySelectorAll('#profile')[0];
+              image.src=media_url+sessionStorage.getItem("user_image");
+              var bg_color_list = ['dark', 'dark-light']; 
+              var color_decs_list =['cyan','yellow','orange'];
+              var images=["1357fb26e241e79.jpg","images.jpg"]
+              data.forEach(function(dt) {
+                var bg_color = bg_color_list[(Math.random() * bg_color_list.length) | 0];
+                var desc_color = color_decs_list[(Math.random() * color_decs_list.length) | 0];
+                var imges_random=images[(Math.random() * images.length) | 0];
+                var newRow = document.createElement("div");
+                newRow.innerHTML=`
+                <div class=" tm-timeline-item">
+                        <div class="tm-timeline-item-inner">
+                            <img src="img/${imges_random}" alt="Image" class="rounded-circle tm-img-timeline">
+                            <div class="tm-timeline-connector">
+                                <p class="mb-0">&nbsp;</p>
+                            </div>
+                            <div class="tm-timeline-description-wrap">
+                                <div class="tm-bg-${bg_color} tm-timeline-description">
+                                    <h3 class="tm-text-${desc_color} tm-font-400">${dt.title.length>64?dt.title.slice(0,64)+'...':dt.title}</h3>
+                                    <p>${dt.content.length>85?dt.content.slice(0,85)+'...':dt.content}</p>
+                                    <p class="tm-text-green float-right mb-0">${formatDate(dt.created_at)} </p><a id="download" href='data:text/plain;charset=utf-8,${encodeURIComponent(create_file_content(dt.title,dt.content))}' download='Note_${dt.id}.text'><svg style="margin-left: -4px;margin-right: 10px; margin-top: 6px;" xmlns="http://www.w3.org/2000/svg" height="1.5em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#298de0}</style><path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64zm368 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"/></svg></a>
+                                  <a id="${dt.id}" class='del-button' > <svg   xmlns="http://www.w3.org/2000/svg" height="1.5em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#2b88d5}</style><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg></a>
+                                    </div>
+                                
+                            </div>
+                            <div class="tm-timeline-connector">
+                                <p class="mb-0">&nbsp;</p>
+                            </div>
+                            <button id="view note${dt.id}" style="border:4px solid #404040  padding: 2px 15px; width: 173px; height: 50px; font-size:20px;">view note<svg style="margin-left:5px;" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M441 58.9L453.1 71c9.4 9.4 9.4 24.6 0 33.9L424 134.1 377.9 88 407 58.9c9.4-9.4 24.6-9.4 33.9 0zM209.8 256.2L344 121.9 390.1 168 255.8 302.2c-2.9 2.9-6.5 5-10.4 6.1l-58.5 16.7 16.7-58.5c1.1-3.9 3.2-7.5 6.1-10.4zM373.1 25L175.8 222.2c-8.7 8.7-15 19.4-18.3 31.1l-28.6 100c-2.4 8.4-.1 17.4 6.1 23.6s15.2 8.5 23.6 6.1l100-28.6c11.8-3.4 22.5-9.7 31.1-18.3L487 138.9c28.1-28.1 28.1-73.7 0-101.8L474.9 25C446.8-3.1 401.2-3.1 373.1 25zM88 64C39.4 64 0 103.4 0 152V424c0 48.6 39.4 88 88 88H360c48.6 0 88-39.4 88-88V312c0-13.3-10.7-24-24-24s-24 10.7-24 24V424c0 22.1-17.9 40-40 40H88c-22.1 0-40-17.9-40-40V152c0-22.1 17.9-40 40-40H200c13.3 0 24-10.7 24-24s-10.7-24-24-24H88z"/></svg></button>
+                        </div>
+                        <div class="tm-timeline-connector-vertical"></div>
+                    </div> 
+                  <!-- The popup overlay and content -->
+                  <div id="popup${dt.id}" class="overlay">
+                    <div class="popup">
+                      <h2 contenteditable="true" id='pophead${dt.id}'>${dt.title}</h2>
+                      <a class="close" href="#">&times;</a>
+                      <button id="${dt.id}" class="save_note">save</button>
+                      <div contenteditable="true" class="content" style="color:white;" id="popcontent${dt.id}" style='color:black;'>
+                        ${dt.content}
+                      </div>
+                    </div>
+                  </div>
+                  
+                `
+                divs.appendChild(newRow);
+                addeventpopup(dt.id,'#popup'+dt.id);});
+                save_edited_note();
+                addeventbutton() ;
+               
+             
+        },
+           error: function(error) {
+                console.log('GET error:', error);
+            } });}
+  if (token){
+    createtable();
+    
+    $("#nav_user_details span#login_text").html(user.toUpperCase());
+    // user_login.text=user;
+    // var bodyElement = document.body;
+    logout();
+  }
+else{
+  alert("please login first");
+  window.location.href = "login.html";
+}
+   
+
+function add_note_post(){
+$('#add_note_btn').click(function(){
+  var title=$('#add_title').val();
+  var content=$('#add_content').val();
+
+  data_note={
+    "title": title,
+    "content": content}
+  $.ajax({
+            url: 'http://127.0.0.1:8000/note/api',
+            type: 'POST',
+            data:data_note,
+            headers:{'Authorization': `Token ${token}`},
+            success: function(data) {
+          console.log(data);
+        },
+           error: function(error) {
+                console.log('GET error:', error);
+            } });  
+});}
+$('#createaddpost').click(function(){
+  if(token){
+
+  var main_div=document.querySelectorAll('.col-lg-12')[2];
+  var newRow = document.createElement("div");
+  newRow.innerHTML=`<div class=" tm-timeline-item">
+                        <div class="tm-timeline-item-inner">
+                         
+                            <div class="tm-timeline-description-wrap">
+                                <div class="tm-bg-dark tm-timeline-description">
+                                    <h3 class="tm-text-dark tm-font-400"><input type='text' id='add_title' placeholder='enter title'></h3>
+                                    <p><input id='add_content' type='text' placeholder='enter title'/></p>
+                                    <button id="add_note_btn" style="border:4px solid #404040">save note</button>
+                                    </div>    
+                            </div>
+                           
+                           
+                        </div>
+                        <div class="tm-timeline-connector-vertical"></div>
+                    </div> `;
+  main_div.appendChild(newRow)
+  
+  add_note_post();
+  if (newRow){
+    var btn_note=document.getElementById("createaddpost");
+    btn_note.style.display='none';
+  }
+}} 
+)
+
+function create_file_content(title,content){
+data_file=`title:${title}`+'\n'+ `content:${content}`
+return data_file
+}
+function addeventpopup(id,link){
+  console.log(id)
+ document.getElementById(`view note${id}`).addEventListener("click", function() {
+  window.location.href =link;
+})};
+
+function save_edited_note(){
+$('#save_note').click(function(){
+  console.log("test");
+  var title=$('#pophead').val();
+  var content=$('#popcontent').val();
+  data_note={
+    "title": title,
+    "content": content}
+  $.ajax({
+            url: 'http://127.0.0.1:8000/note/api',
+            type: 'POST',
+            data:data_note,
+            headers:{'Authorization': `Token ${token}`},
+            success: function(data) {
+          console.log(data);
+        },
+           error: function(error) {
+                console.log('GET error:', error);
+            } });  
+});}
+
+function save_edited_note(){
+ var save_buttons = document.querySelectorAll('.save_note');
+save_buttons.forEach(function(button) {
+    button.addEventListener('click', function(event) {
+        var buttonId = event.target.id;
+        var title=$('#pophead'+buttonId).text()
+        var content=$('#popcontent'+buttonId).text()
+        data={'title':title,'content':content}
+        $.ajax({
+            url: `http://127.0.0.1:8000/note/api/${buttonId}`,
+            type: 'PUT',
+            data:data,
+            headers:{'Authorization': `Token ${token}`},
+            success: function(data) {
+                console.log(data)
+            },
+            error: function(error) {
+                console.log('GET error:', error);
+            }
+            });
+    });
+});}
+
+function formatDate(inputDate) {
+    const months = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+
+    const dateObj = new Date(inputDate);
+    const day = dateObj.getDate();
+    const month = months[dateObj.getMonth()];
+    const year = dateObj.getFullYear();
+
+    const formattedDate = `${day} ${month} ${year}`;
+    return formattedDate;
+}
+</script>
+</body>
+</html>

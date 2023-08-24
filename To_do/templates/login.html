@@ -1,0 +1,114 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        
+    background-color: #333333;
+    color: #FFFFFF;
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+}
+.box{
+
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    width: 300px;
+    padding: 40px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align:center;
+    background: black;
+}
+.box h1{
+
+    color:white;
+    text-transform:uppercase;
+    font-weight: 500;
+}
+.box input[type="text"],.box input[type="password"]{
+    border: 0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align:center;
+    border: 2px solid #3498db;
+    padding: 14px 10px;
+    width: 245px;
+    outline: none;
+    color:white;
+    border-radius:24px ;
+    transition:0.25s; 
+}
+.box input[type="text"]:focus,.box input[type="password"]:focus{
+width:300px;
+}
+.box button[type="submit"]{
+    border: 0;
+    background: none;
+    display: block;
+    margin: 20px auto;  
+    text-align:center;
+    border: 2px solid  #3498db;
+    padding: 14px 40px;
+
+    outline: none;
+    color:white;
+    border-radius:24px ;
+    transition:0.25s; 
+}
+.box button[type="submit"]:hover{
+    background-color: greenyellow;
+}
+
+
+        </style>
+</head>
+<body>
+
+<form method="post" class="box" id="loginForm">
+    <h1>LOGIN</h1>
+    <input type="text" id="name" placeholder="enter name here" required>
+    <input type="password" id="pass" placeholder="enter password here" required>
+    <button type="submit" id="login" name="login_btn">login</button>
+</form>
+<script>
+$(document).ready(function() {
+    $('#loginForm').submit(function(event){
+        event.preventDefault();
+         const formData = {
+            'username': $('#name').val(),
+            'password': $('#pass').val()
+        };
+    
+        $.ajax({
+            url: 'http://127.0.0.1:8000/note/api/login',
+            type: 'POST',
+            data: formData,
+            success: function(data) {
+                console.log(data);
+                var token=data.token;
+                sessionStorage.setItem("token",token);
+                sessionStorage.setItem("user",data.user);
+                sessionStorage.setItem("user_image",data.photo);
+                window.location.href = 'test.html';
+            },
+            error: function(error) {
+                alert("Wrong username and password");
+            }
+
+            });
+            
+    });
+});
+</script>
+</body>
+
+</html>
