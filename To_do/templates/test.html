@@ -24,13 +24,13 @@ svg:hover{
 button{
     border: 0;
     background: none;
-    display: block; 
+    display: block;
     text-align:center;
     border: 5px solid  #404040;
     outline: none;
     color:white;
     border-radius:24px ;
-    transition:0.25s; 
+    transition:0.25s;
 }
 button:hover{
     background-color: greenyellow;
@@ -102,23 +102,23 @@ button:hover{
 .save_note{
     border: 0;
     background: none;
-    display: block; 
+    display: block;
     text-align:center;
     border: 2px solid #404040;
     outline: none;
     color:white;
     border-radius:24px ;
-    transition:0.25s; 
+    transition:0.25s;
   position: absolute; /* Position the button absolutely within the popup */
   right: 22px; /* Adjust the value to move the button left */
   bottom: 20px;
 }
 #inner_div{
-  width: 40px; 
-  height: inherit; 
+  width: 40px;
+  height: inherit;
   border: 2px solid red;
-   border-radius: 50%; 
-   margin-top: 20px; 
+   border-radius: 50%;
+   margin-top: 20px;
    background-image: url("img/829472_man_512x512.png");
 
 }
@@ -152,7 +152,7 @@ button:hover{
     /* outline: none; */
     color:white;
     border-radius:24px ;
-    position: relative; 
+    position: relative;
     left: 302px;
 }
 #createaddpost:hover{
@@ -161,12 +161,14 @@ button:hover{
 </style>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 </head>
 <body>
-  
- <div id="nav_user_details" style="width:100%; height: 75px; background-color: black;"><img id="profile" src="img/829472_man_512x512.png" alt="Image" class="rounded-circle login_user"><span id="login_text"></span><button  id="logoutbtn">logout<svg style="margin-left:10px; margin-top:5px;" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M217.9 105.9L340.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L217.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1L32 320c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM352 416l64 0c17.7 0 32-14.3 32-32l0-256c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32l64 0c53 0 96 43 96 96l0 256c0 53-43 96-96 96l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32z"/></svg></button></div>
-<div class="container">
+
+ <div id="nav_user_details" style="width:100%; height: 75px; background-color: black;"><img id="profile" src="img/829472_man_512x512.png" alt="Image" class="rounded-circle login_user"><img id="img_upload" style="height: 43px;width: 43px; display: none;" src="img/Circle-icons-camera.svg.png"><span id="login_text"></span><button  id="logoutbtn">logout<svg style="margin-left:10px; margin-top:5px;" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M217.9 105.9L340.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L217.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1L32 320c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM352 416l64 0c17.7 0 32-14.3 32-32l0-256c0-17.7-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32l64 0c53 0 96 43 96 96l0 256c0 53-43 96-96 96l-64 0c-17.7 0-32-14.3-32-32s14.3-32 32-32z"/></svg></button></div>
+
+ <div class="container">
 
   <div class="row">
     <div class="col-lg-12">
@@ -176,6 +178,10 @@ button:hover{
         </header>
     </div>
   </div>
+  <form>
+  <input type="file" id="fileInput">
+<button id="uploadbtn" type="submit">upload image</button>
+</form>
 
   <div class="container tm-container-2">
     <div class="row">
@@ -183,12 +189,13 @@ button:hover{
             <h2 class="tm-welcome-text">Welcome to Notes Application</h2>
         </div>
     </div>
+    <input id="search_note" type="text" placeholder="search notes here"/>
     <div class="row tm-section-mb">
       <div class="col-lg-12">
 
-      
+
       </div>
-      <button id="createaddpost">add notes</button>  
+      <button id="createaddpost">add notes</button>
     </div>
   </div>
 
@@ -198,7 +205,8 @@ button:hover{
 <script>
 var token=sessionStorage.getItem("token");
 var user=sessionStorage.getItem('user');
-var media_url="http://127.0.0.1:8000/note/media/"
+
+var media_url="http://127.0.0.1:8000"
 
 function addeventbutton(){
  var buttons = document.querySelectorAll('.del-button');
@@ -219,6 +227,67 @@ $('.del-button').each(function(){
             });
         });})
       }
+
+$('#profile').click(
+  function(){
+  var cam_icon=document.getElementById("img_upload");
+  if (cam_icon.style.display=='inline')
+  {
+
+    cam_icon.style.display='none';
+  }
+  else{
+    cam_icon.style.display='inline';
+    upload_icon();
+    // upload_img();
+  }
+}
+)
+function upload_icon(){
+  var icon=document.getElementById("img_upload");
+  if (icon.style.display=='inline'){
+    $('#img_upload').click(function(){
+      $('#fileInput').click();
+      console.log($("fileInput").val(),',,,,,,,');
+    })
+  }
+}
+function upload_img(){
+  // const fileInput = document.getElementById('fileInput');
+  // fileInput.addEventListener('input', handleInputChange);
+  // fileInput.addEventListener('submit', handleInputChange);
+  $('#uploadbtn').click(function () {
+            // if (fileInput.value != '') {
+              const selectedFile = fileInput.files[0];
+              formatDate={"profile_picture":selectedFile}
+          // if (selectedFile) {
+            console.log("test");
+            // const formData = new FormData();
+            // formData.append('profile_picture', selectedFile);
+        //    data_image={
+        //   "profile_picture": fileInput.files[0]
+
+        // }
+        console.log(fileInput.files[0].name);
+            $.ajax({
+            url: 'http://127.0.0.1:8000/note/api/profile',
+            type: 'PUT',
+            data:formData,
+            headers:{'Authorization': `Token ${token}`},
+            processData: false,  // Prevent jQuery from processing data
+            contentType: 'application/json',
+            success: function(data) {
+                console.log(data)
+            },
+            error: function(error) {
+                console.log('GET error:', error);
+            }
+            });
+            }
+         )
+
+}
+upload_img();
 function logout(){
 $('#logoutbtn').click(
   function(){
@@ -232,7 +301,7 @@ $('#logoutbtn').click(
         },
            error: function(error) {
                 console.log('GET error:', error);
-            } });  
+            } });
 })};
 
 function createtable(){
@@ -240,11 +309,82 @@ function createtable(){
         $.ajax({
             url: 'http://127.0.0.1:8000/note/api',
             type: 'GET',
-            // data:data_test,
+            headers:{'Authorization': `Token ${token}`},
             success: function(data) {
-              var image=document.querySelectorAll('#profile')[0];
-              image.src=media_url+sessionStorage.getItem("user_image");
-              var bg_color_list = ['dark', 'dark-light']; 
+
+              var bg_color_list = ['dark', 'dark-light'];
+              var color_decs_list =['cyan','yellow','orange'];
+              var images=["1357fb26e241e79.jpg","images.jpg"]
+              data.forEach(function(dt) {
+
+                var bg_color = bg_color_list[(Math.random() * bg_color_list.length) | 0];
+                var desc_color = color_decs_list[(Math.random() * color_decs_list.length) | 0];
+                var imges_random=images[(Math.random() * images.length) | 0];
+                var newRow = document.createElement("div");
+                newRow.innerHTML=`
+                <div class=" tm-timeline-item">
+                        <div class="tm-timeline-item-inner">
+                            <img src="img/${imges_random}" alt="Image" class="rounded-circle tm-img-timeline">
+                            <div class="tm-timeline-connector">
+                                <p class="mb-0">&nbsp;</p>
+                            </div>
+                            <div class="tm-timeline-description-wrap">
+                                <div class="tm-bg-${bg_color} tm-timeline-description">
+                                    <h3 class="tm-text-${desc_color} tm-font-400">${dt.title.length>64?dt.title.slice(0,64)+'...':dt.title}</h3>
+                                    <p>${dt.content.length>85?dt.content.slice(0,85)+'...':dt.content}</p>
+                                    <p class="tm-text-yellow float-right mb-0">Created By: ${dt.username}</p>
+                                    <p style='margin-right:8px;' class="tm-text-green float-right mb-0">${formatDate(dt.created_at)} </p>
+                                     ${del_button_condition(dt)}
+                                    </div>
+
+                            </div>
+                            <div class="tm-timeline-connector">
+                                <p class="mb-0">&nbsp;</p>
+                            </div>
+                            <button id='view note${dt.id}' style='border:4px solid #404040  padding: 2px 15px; width: 173px; height: 50px; font-size:20px;'>view note<svg style="margin-left:5px;" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M441 58.9L453.1 71c9.4 9.4 9.4 24.6 0 33.9L424 134.1 377.9 88 407 58.9c9.4-9.4 24.6-9.4 33.9 0zM209.8 256.2L344 121.9 390.1 168 255.8 302.2c-2.9 2.9-6.5 5-10.4 6.1l-58.5 16.7 16.7-58.5c1.1-3.9 3.2-7.5 6.1-10.4zM373.1 25L175.8 222.2c-8.7 8.7-15 19.4-18.3 31.1l-28.6 100c-2.4 8.4-.1 17.4 6.1 23.6s15.2 8.5 23.6 6.1l100-28.6c11.8-3.4 22.5-9.7 31.1-18.3L487 138.9c28.1-28.1 28.1-73.7 0-101.8L474.9 25C446.8-3.1 401.2-3.1 373.1 25zM88 64C39.4 64 0 103.4 0 152V424c0 48.6 39.4 88 88 88H360c48.6 0 88-39.4 88-88V312c0-13.3-10.7-24-24-24s-24 10.7-24 24V424c0 22.1-17.9 40-40 40H88c-22.1 0-40-17.9-40-40V152c0-22.1 17.9-40 40-40H200c13.3 0 24-10.7 24-24s-10.7-24-24-24H88z"/></svg></button>
+                        </div>
+                        <div class="tm-timeline-connector-vertical"></div>
+                    </div>
+                  <!-- The popup overlay and content -->
+                  <div id="popup${dt.id}" class="overlay">
+                    <div class="popup">
+                      <h2 ${(user==dt.username)?'contenteditable="true"':''} id='pophead${dt.id}'>${dt.title}</h2>
+                      <a class="close" href="#">&times;</a>
+                      ${(user==dt.username)?'<button id="${dt.id}" class="save_note">save</button>':''}
+                      <div ${(user==dt.username)?'contenteditable="true"':''} class="content" style="color:white;" id="popcontent${dt.id}" style='color:black;'>
+                        ${dt.content}
+                      </div>
+                    </div>
+                  </div>
+                `
+                divs.appendChild(newRow);
+                addeventpopup(dt.id,'#popup'+dt.id);});
+                save_edited_note();
+                addeventbutton() ;
+
+
+        },
+           error: function(error) {
+                console.log('GET error:', error);
+            } });}
+  function del_button_condition(dt){
+    if (user==dt.username){
+     data= `<a id='download' href='data:text/plain;charset=utf-8,${encodeURIComponent(create_file_content(dt.title,dt.content))}' download='Note_${dt.id}.text'><svg style='margin-left: -4px;margin-right: 10px; margin-top: 6px;' xmlns='http://www.w3.org/2000/svg' height='1.5em' viewBox='0 0 512 512'><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#298de0}</style><path d='M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64zm368 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48z'/></svg></a><a id='${dt.id}' class='del-button' > <svg   xmlns='http://www.w3.org/2000/svg' height='1.5em' viewBox='0 0 448 512'><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#2b88d5}</style><path d='M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z'/></svg></a>`
+    return data
+    }
+    else{
+      return " "
+    }
+  }
+  function search_table(query){
+    console.log(query);
+    var divs = document.querySelectorAll('.col-lg-12')[2];
+        $.ajax({
+            url: 'http://127.0.0.1:8000/note/api/search/'+query,
+            type: 'GET',
+            headers:{'Authorization': `Token ${token}`},
+    success: function(data) {
+              var bg_color_list = ['dark', 'dark-light'];
               var color_decs_list =['cyan','yellow','orange'];
               var images=["1357fb26e241e79.jpg","images.jpg"]
               data.forEach(function(dt) {
@@ -263,10 +403,12 @@ function createtable(){
                                 <div class="tm-bg-${bg_color} tm-timeline-description">
                                     <h3 class="tm-text-${desc_color} tm-font-400">${dt.title.length>64?dt.title.slice(0,64)+'...':dt.title}</h3>
                                     <p>${dt.content.length>85?dt.content.slice(0,85)+'...':dt.content}</p>
-                                    <p class="tm-text-green float-right mb-0">${formatDate(dt.created_at)} </p><a id="download" href='data:text/plain;charset=utf-8,${encodeURIComponent(create_file_content(dt.title,dt.content))}' download='Note_${dt.id}.text'><svg style="margin-left: -4px;margin-right: 10px; margin-top: 6px;" xmlns="http://www.w3.org/2000/svg" height="1.5em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#298de0}</style><path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64zm368 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"/></svg></a>
-                                  <a id="${dt.id}" class='del-button' > <svg   xmlns="http://www.w3.org/2000/svg" height="1.5em" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#2b88d5}</style><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg></a>
+                                    <p class="tm-text-yellow float-right mb-0">Created By: ${dt.username}</p>
+                                    <p style='margin-right:8px;' class="tm-text-green float-right mb-0">${formatDate(dt.created_at)} </p>
+                                    ${del_button_condition(dt)}
+
                                     </div>
-                                
+
                             </div>
                             <div class="tm-timeline-connector">
                                 <p class="mb-0">&nbsp;</p>
@@ -274,33 +416,70 @@ function createtable(){
                             <button id="view note${dt.id}" style="border:4px solid #404040  padding: 2px 15px; width: 173px; height: 50px; font-size:20px;">view note<svg style="margin-left:5px;" xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M441 58.9L453.1 71c9.4 9.4 9.4 24.6 0 33.9L424 134.1 377.9 88 407 58.9c9.4-9.4 24.6-9.4 33.9 0zM209.8 256.2L344 121.9 390.1 168 255.8 302.2c-2.9 2.9-6.5 5-10.4 6.1l-58.5 16.7 16.7-58.5c1.1-3.9 3.2-7.5 6.1-10.4zM373.1 25L175.8 222.2c-8.7 8.7-15 19.4-18.3 31.1l-28.6 100c-2.4 8.4-.1 17.4 6.1 23.6s15.2 8.5 23.6 6.1l100-28.6c11.8-3.4 22.5-9.7 31.1-18.3L487 138.9c28.1-28.1 28.1-73.7 0-101.8L474.9 25C446.8-3.1 401.2-3.1 373.1 25zM88 64C39.4 64 0 103.4 0 152V424c0 48.6 39.4 88 88 88H360c48.6 0 88-39.4 88-88V312c0-13.3-10.7-24-24-24s-24 10.7-24 24V424c0 22.1-17.9 40-40 40H88c-22.1 0-40-17.9-40-40V152c0-22.1 17.9-40 40-40H200c13.3 0 24-10.7 24-24s-10.7-24-24-24H88z"/></svg></button>
                         </div>
                         <div class="tm-timeline-connector-vertical"></div>
-                    </div> 
+                    </div>
                   <!-- The popup overlay and content -->
                   <div id="popup${dt.id}" class="overlay">
                     <div class="popup">
-                      <h2 contenteditable="true" id='pophead${dt.id}'>${dt.title}</h2>
+                      <h2 ${(user==dt.username)?'contenteditable="true"':''} id='pophead${dt.id}'>${dt.title}</h2>
                       <a class="close" href="#">&times;</a>
                       <button id="${dt.id}" class="save_note">save</button>
                       <div contenteditable="true" class="content" style="color:white;" id="popcontent${dt.id}" style='color:black;'>
                         ${dt.content}
                       </div>
                     </div>
-                  </div>
-                  
-                `
-                divs.appendChild(newRow);
-                addeventpopup(dt.id,'#popup'+dt.id);});
-                save_edited_note();
-                addeventbutton() ;
-               
-             
+                  </div> `
+                  divs.appendChild(newRow);
+
+  })},
+  error: function(error) {
+                console.log('GET error:', error);
+            } });}
+
+  function get_image(){
+    $.ajax({
+            url: 'http://127.0.0.1:8000/note/api/profile',
+            type: 'GET',
+            headers:{'Authorization': `Token ${token}`},
+            success: function(data) {
+            var image=document.querySelectorAll('#profile')[0];
+            image.src=media_url+data[0].profile_picture;
+
         },
            error: function(error) {
                 console.log('GET error:', error);
             } });}
+
+
   if (token){
+    var s_btn=document.getElementById("search_note");
     createtable();
-    
+    get_image();
+
+    let searchTimeout;
+    $("#search_note").on('input', function() {
+        // var query = $(this).val();
+        var divs = document.querySelectorAll('.col-lg-12')[2];
+        divs.innerHTML='';
+        clearTimeout(searchTimeout);
+        const searchTerm = $(this).val().trim();
+        // search_table(query);
+        searchTimeout = setTimeout(function() {
+                if (searchTerm !== '') {
+
+                    search_table(searchTerm);
+                }
+            }, 300);
+    });
+
+    s_btn.addEventListener('input', handleInputChange);
+    s_btn.addEventListener('change', handleInputChange);
+
+        function handleInputChange() {
+            if (s_btn.value === '') {
+                createtable();
+            }
+        }
+
     $("#nav_user_details span#login_text").html(user.toUpperCase());
     // user_login.text=user;
     // var bodyElement = document.body;
@@ -310,7 +489,7 @@ else{
   alert("please login first");
   window.location.href = "login.html";
 }
-   
+
 
 function add_note_post(){
 $('#add_note_btn').click(function(){
@@ -330,7 +509,7 @@ $('#add_note_btn').click(function(){
         },
            error: function(error) {
                 console.log('GET error:', error);
-            } });  
+            } });
 });}
 $('#createaddpost').click(function(){
   if(token){
@@ -339,27 +518,25 @@ $('#createaddpost').click(function(){
   var newRow = document.createElement("div");
   newRow.innerHTML=`<div class=" tm-timeline-item">
                         <div class="tm-timeline-item-inner">
-                         
+
                             <div class="tm-timeline-description-wrap">
                                 <div class="tm-bg-dark tm-timeline-description">
                                     <h3 class="tm-text-dark tm-font-400"><input type='text' id='add_title' placeholder='enter title'></h3>
                                     <p><input id='add_content' type='text' placeholder='enter title'/></p>
                                     <button id="add_note_btn" style="border:4px solid #404040">save note</button>
-                                    </div>    
+                                    </div>
                             </div>
-                           
-                           
                         </div>
                         <div class="tm-timeline-connector-vertical"></div>
                     </div> `;
   main_div.appendChild(newRow)
-  
+
   add_note_post();
   if (newRow){
     var btn_note=document.getElementById("createaddpost");
     btn_note.style.display='none';
   }
-}} 
+}}
 )
 
 function create_file_content(title,content){
@@ -390,7 +567,7 @@ $('#save_note').click(function(){
         },
            error: function(error) {
                 console.log('GET error:', error);
-            } });  
+            } });
 });}
 
 function save_edited_note(){
@@ -430,6 +607,23 @@ function formatDate(inputDate) {
     const formattedDate = `${day} ${month} ${year}`;
     return formattedDate;
 }
+
+window.onscroll = function() {sessionStorage.setItem("height",window.pageYOffset); };
+// function getscrollHeight() {) };
+
+// function reloadP(){
+//     document.location.reload();
+//     getscrollHeight();
+// }
+window.onload = function() {
+    var reloading = sessionStorage.getItem("height");
+    if (reloading) {
+      window.scrollTo(0,sessionStorage.getItem("height",window.pageYOffset))
+      sessionStorage.removeItem("height");
+
+    }
+}
 </script>
+
 </body>
 </html>

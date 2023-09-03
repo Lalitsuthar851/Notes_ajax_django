@@ -1,30 +1,36 @@
 from django.shortcuts import render, HttpResponse
+from rest_framework.parsers import FileUploadParser, MultiPartParser
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .models import *
-from .serializer import To_doNote_Seriralizer
+from .serializer import To_doNote_Seriralizer,Profile_Seriralizer
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import get_user_model
+from django.db.models import Q
 User=get_user_model
 
 
 # Create your views here.
 class TodoView(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request):
-        print(request.session.get("user_details"),",,,,,")
+        print(request.session.get("user_details"))
         # print(request.session["token"])
         data = Note.objects.all()
+
         serializer = To_doNote_Seriralizer(data, many=True)
+
         return Response(serializer.data)
 
     def post(self, request):
         data = {'title': request.data.get("title"), "content": request.data.get("content"), "user": request.user.id}
         # data=Note.objects.create()
+        print(data)
         ser = To_doNote_Seriralizer(data=data)
         if ser.is_valid():
             ser.save()
@@ -37,14 +43,12 @@ class TodoDetailsView(APIView):
 
 
     def get(self, request, note_id):
-        print(request.session['auth_token'])
-        print(Note.objects.get(id=note_id))
         serd = To_doNote_Seriralizer(Note.objects.get(id=note_id))
         return Response(serd.data)
 
     def put(self, request, note_id):
         data = {'title': request.data.get("title"), "content": request.data.get("content")}
-        print(request.user.id)
+
         instanc = Note.objects.get(id=note_id, user=request.user.id)
         ser = To_doNote_Seriralizer(instance=instanc, data=data, partial=True)
         if ser.is_valid():
@@ -71,6 +75,13 @@ class TodoDetailsView(APIView):
             status=status.HTTP_200_OK
         )
 
+class SearchitemView(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request, query):
+        notes = Note.objects.filter(Q(title__icontains=query) | Q(content__icontains=query) |Q(user__username__icontains=query))
+        serd = To_doNote_Seriralizer(notes, many=True)
+        return Response(serd.data)
+
 
 class LoginView(APIView):
     def post(self, request):
@@ -90,6 +101,7 @@ class LoginView(APIView):
             return Response({'error': 'Invalid credentials'},
                             status=status.HTTP_401_UNAUTHORIZED)
         token, created = Token.objects.get_or_create(user=user)
+        print(token,user)
         return Response({"authorized":True,'token': token.key,'user':request.user.username,"photo":str(request.user.profile_picture)})
 
 
@@ -105,6 +117,34 @@ class LogoutView(APIView):
         user_token.delete()
 
         return Response({'message': 'Logged out successfully'})
+
+class Profile_Update(APIView):
+    permission_classes = [IsAuthenticated]
+    # parser_classes = (FileUploadParser)
+
+    # def post(self,request):
+
+
+    def put(self, request):
+        up_file = request.FILES['file']
+        print(up_file)
+        data= {"profile_picture": request.data.get("profile_picture")}
+        print(data)
+        instanc = CustomUser.objects.get(id=request.user.id)
+        ser = Profile_Seriralizer(instance=instanc, data=data, partial=True)
+        print(ser)
+        if ser.is_valid():
+            ser.save()
+            return Response("profile update")
+        print("<<<<<<<<<<<<<<<<<<<<<<<")
+        return Response({'message': 'profile pic not added'})
+
+    def get(self, request):
+        print(request.session.get("user_details"))
+        # print(request.session["token"])
+        data = CustomUser.objects.filter(id=request.user.id)
+        serializer = Profile_Seriralizer(data, many=True)
+        return Response(serializer.data)
 
 
 

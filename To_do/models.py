@@ -9,7 +9,6 @@ class CustomUser(AbstractUser):
     profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
 
     objects = CustomUserManager()
-
     def __str__(self):
         return self.username
 
