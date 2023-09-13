@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render, HttpResponse
 from rest_framework.parsers import FileUploadParser, MultiPartParser
 from rest_framework.views import APIView
@@ -30,8 +31,9 @@ class TodoView(APIView):
     def post(self, request):
         data = {'title': request.data.get("title"), "content": request.data.get("content"), "user": request.user.id}
         # data=Note.objects.create()
-        print(data)
+
         ser = To_doNote_Seriralizer(data=data)
+        print(data)
         if ser.is_valid():
             ser.save()
             return Response("data saved")
@@ -102,7 +104,7 @@ class LoginView(APIView):
                             status=status.HTTP_401_UNAUTHORIZED)
         token, created = Token.objects.get_or_create(user=user)
         print(token,user)
-        return Response({"authorized":True,'token': token.key,'user':request.user.username,"photo":str(request.user.profile_picture)})
+        return Response({"authorized":True,'token': token.key,'user':request.user.username,'user_id':request.user.id,"photo":str(request.user.profile_picture)})
 
 
 
@@ -126,8 +128,6 @@ class Profile_Update(APIView):
 
 
     def put(self, request):
-        up_file = request.FILES['file']
-        print(up_file)
         data= {"profile_picture": request.data.get("profile_picture")}
         print(data)
         instanc = CustomUser.objects.get(id=request.user.id)
@@ -145,6 +145,21 @@ class Profile_Update(APIView):
         data = CustomUser.objects.filter(id=request.user.id)
         serializer = Profile_Seriralizer(data, many=True)
         return Response(serializer.data)
+class Likes(APIView):
+    permission_classes = [IsAuthenticated]
+    def post(self,request,note_id):
+        dt=Note.objects.get(id=note_id)
+        if dt.likes.filter(id=request.user.id).exists():
+            dt.likes.remove(request.user.id)
+            data={'likes':True}
+            print("removed")
+            return HttpResponse(json.dumps(data), content_type='application/json')
+        else:
+            dt.likes.add(request.user.id)
+            data = {'likes': False}
+            print("added")
+            return HttpResponse(json.dumps(data), content_type='application/json')
+
 
 
 

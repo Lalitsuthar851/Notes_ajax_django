@@ -19,4 +19,4 @@ class To_doNote_Seriralizer(serializers.ModelSerializer):
     class Meta:
         model=Note
         # fields="__all__"
-        fields =['id', 'title', 'content', 'username','user','created_at']
+        fields =['id', 'title', 'content', 'username','user','created_at','likes']

@@ -18,6 +18,8 @@ class Note(models.Model):
     title = models.CharField(max_length=150)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
-
+    likes = models.ManyToManyField(CustomUser, related_name='blogpost_like',blank=True)
+    def number_of_likes(self):
+        return self.likes.count()
     def __str__(self):
         return self.title

@@ -7,7 +7,7 @@
         body {
             margin: 0;
             padding: 0;
-        
+
     background-color: #333333;
     color: #FFFFFF;
     font-family: 'Open Sans', Helvetica, Arial, sans-serif;
@@ -45,7 +45,7 @@
     outline: none;
     color:white;
     border-radius:24px ;
-    transition:0.25s; 
+    transition:0.25s;
 }
 .box input[type="text"]:focus,.box input[type="password"]:focus{
 width:300px;
@@ -54,7 +54,7 @@ width:300px;
     border: 0;
     background: none;
     display: block;
-    margin: 20px auto;  
+    margin: 20px auto;
     text-align:center;
     border: 2px solid  #3498db;
     padding: 14px 40px;
@@ -62,7 +62,7 @@ width:300px;
     outline: none;
     color:white;
     border-radius:24px ;
-    transition:0.25s; 
+    transition:0.25s;
 }
 .box button[type="submit"]:hover{
     background-color: greenyellow;
@@ -87,17 +87,16 @@ $(document).ready(function() {
             'username': $('#name').val(),
             'password': $('#pass').val()
         };
-    
+
         $.ajax({
-            url: 'http://127.0.0.1:8000/note/api/login',
+            url: 'http://localhost:8000/note/api/login',
             type: 'POST',
             data: formData,
             success: function(data) {
-                console.log(data);
                 var token=data.token;
                 sessionStorage.setItem("token",token);
                 sessionStorage.setItem("user",data.user);
-                sessionStorage.setItem("user_image",data.photo);
+                sessionStorage.setItem('user_id',data.user_id)
                 window.location.href = 'test.html';
             },
             error: function(error) {
@@ -105,7 +104,7 @@ $(document).ready(function() {
             }
 
             });
-            
+
     });
 });
 </script>
